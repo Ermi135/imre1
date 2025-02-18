@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professional Online Business Quiz</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet" />
+  <style>
+    /* Global Reset & Box Sizing */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    /* Body Background & Overlay */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: url('https://source.unsplash.com/1600x900/?business,office') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+    }
+    /* Header Section */
+    header {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    header .logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    header nav ul {
+      list-style: none;
+      display: flex;
+    }
+    header nav ul li {
+      margin-left: 20px;
+    }
+    header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    header nav ul li a:hover {
+      color: #007acc;
+    }
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      padding: 60px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      margin: 20px auto;
+      border-radius: 8px;
+      max-width: 800px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: 36px;
+      margin-bottom: 15px;
+    }
+    .hero p {
+      font-size: 20px;
+      line-height: 1.4;
+    }
+    /* Main Content Area */
+    main {
+      flex: 1;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    .quiz-container {
+      background: rgba(51, 51, 51, 0.95);
+      padding: 40px;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 700px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s ease-in-out;
+    }
+    /* Progress Bar */
+    .progress-bar {
+      width: 100%;
+      background: #444;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      height: 10px;
+    }
+    .progress {
+      width: 0%;
+      height: 10px;
+      background: #007acc;
+      transition: width 0.5s ease;
+    }
+    /* Question Styling */
+    .question {
+      display: none;
+      margin-bottom: 30px;
+      animation: fadeIn 0.5s ease;
+    }
+    .question.active {
+      display: block;
+    }
+    .question p {
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .option {
+      margin: 12px 0;
+    }
+    label {
+      cursor: pointer;
+      font-size: 18px;
+      margin-left: 10px;
+    }
+    /* Button Styling */
+    button {
+      padding: 15px 30px;
+      background: #007acc;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.3s ease;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: #005fa3;
+    }
+    /* Footer Section */
+    footer {
+      background: rgba(0, 0, 0, 0.85);
+      padding: 20px 40px;
+      text-align: center;
+      font-size: 14px;
+      position: relative;
+      z-index: 1;
+    }
+    footer a {
+      color: #007acc;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* Fade In Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">My Online Business</div>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <h1>What Online Training is the Best for YOU to Start Earning?</h1>
+    <p>Based on your answers, we will send you our best link to help you get started on your online business journey.</p>
+  </div>
+
+  <!-- Main Quiz Container -->
+  <main>
+    <div class="quiz-container">
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+      </div>
+      <!-- Question 1 -->
+      <div class="question active" id="question1">
+        <p>Question 1: What is your #11 goal you want to achieve with your online business?</p>
+        <div class="option">
+          <input type="radio" name="q1" value="Achieve Financial Freedom" id="q1a1" required>
+          <label for="q1a1">Achieve Financial Freedom</label>
+        </div>
+        <div class="option">
+          <input type="radio" name="q1" value="Earn Extra Income To My 9-5 job" id="q1a2">
+          <label for="q1a2">Earn Extra Income To My 9-5 job</label>
+        </div>
+        <div class="option">
+          <input type="radio" name="q1" value="Leave my job and finally start living" id="q1a3">
+          <label for="q1a3">Leave my job and finally start living</label>
+        </div>
+        <button onclick="nextQuestion('question1', 'question2')">Next</button>
+      </div>
+
+      <!-- Question 2 -->
+      <div class="question" id="question2">
+        <p>Question 2: What describes your current situation?</p>
+        <div class="option">
+          <input type="radio" name="q2" value="I have a full-time 9-5 job" id="q2a1" required>
+          <label for="q2a1">I have a full-time 9-5 job</label>
+        </div>
+        <div class="option">
+          <input type="radio" name="q2" value="I have a 9-5 job and a side hustle" id="q2a2">
+          <label for="q2a2">I have a 9-5 job and a side hustle</label>
+        </div>
+        <div class="option">
+          <input type="radio" name="q2" value="I don't work (student, retirement) but I have/want a side hustle" id="q2a3">
+          <label for="q2a3">I don't work (student, retirement) but I have/want a side hustle</label>
+        </div>
+        <button onclick="nextQuestion('question2', 'question3')">Next</button>
+      </div>
+
+      <!-- Question 3 -->
+      <div class="question" id="question3">
+        <p>Question 3: How much time per day would you like to work on your online business?</p>
+        <div class="option">
+          <input type="radio" name="q3" value="Less than 1 hour per day" id="q3a1" required>
+          <label for="q3a1">Less than 1 hour per day</label>
+        </div>
+        <div class="option">
+          <input type="radio" name="q3" value="1-3 hours per day" id="q3a2">
+          <label for="q3a2">1-3 hours per day</label>
+        </div>
+        <div class="option">
+          <input type="radio" name="q3" value="More than 3 hours per day" id="q3a3">
+          <label for="q3a3">More than 3 hours per day</label>
+        </div>
+        <button onclick="nextQuestion('question3', 'question4')">Next</button>
+      </div>
+
+      <!-- Question 4 -->
+      <div class="question" id="question4">
+        <p>Question 4: What is the #1 thing you believe would help you the most to achieve your goals?</p>
+        <div class="option">
+          <input type="radio" name="q4" value="Complete step-by-step training" id="q4a1" required>
+          <label for="q4a1">Complete step-by-step training</label>
+        </div>
+        <div class="option">
+          <input type="radio" name="q4" value="Guidance and hands-on help" id="q4a2">
+          <label for="q4a2">Guidance and hands-on help</label>
+        </div>
+        <div class="option">
+          <input type="radio" name="q4" value="Following a proven process" id="q4a3">
+          <label for="q4a3">Following a proven process</label>
+        </div>
+        <button onclick="nextQuestion('question4', 'question5')">Next</button>
+      </div>
+
+      <!-- Question 5 -->
+      <div class="question" id="question5">
+        <p>Question 5: How much money would you like to earn in 3 months from today?</p>
+        <div class="option">
+          <input type="radio" name="q5" value="$1,000 to 2,000 Per Month" id="q5a1" required>
+          <label for="q5a1">$1,000 to 2,000 Per Month</label>
+        </div>
+        <div class="option">
+          <input type="radio" name="q5" value="$2,000 to 5,000 Per Month" id="q5a2">
+          <label for="q5a2">$2,000 to 5,000 Per Month</label>
+        </div>
+        <div class="option">
+          <input type="radio" name="q5" value="More than $5,000 Per Month" id="q5a3">
+          <label for="q5a3">More than $5,000 Per Month</label>
+        </div>
+        <button onclick="nextQuestion('question5', 'question6')">Next</button>
+      </div>
+
+      <!-- Question 6 -->
+      <div class="question" id="question6">
+        <p>Question 6: We have a training course on how beginners are making $10,000/month, would you like to see it?</p>
+        <div class="option">
+          <input type="radio" name="q6" value="YES!" id="q6a1" required>
+          <label for="q6a1">YES!</label>
+        </div>
+        <div class="option">
+          <input type="radio" name="q6" value="No, I don't want targeted training for me" id="q6a2">
+          <label for="q6a2">No, I don't want targeted training for me</label>
+        </div>
+        <button onclick="submitQuiz()">Submit</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 My Online Business. All rights reserved.</p>
+    <p>
+      <a href="https://twitter.com" target="_blank">Twitter</a> |
+      <a href="https://facebook.com" target="_blank">Facebook</a> |
+      <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+    </p>
+  </footer>
+
+  <script>
+    // Array of question IDs for progress calculation
+    const questionIds = ["question1", "question2", "question3", "question4", "question5", "question6"];
+    let currentQuestionIndex = 0;
+
+    // Function to show the next question after ensuring an option is selected
+    function nextQuestion(currentId, nextId) {
+      const currentQuestion = document.getElementById(currentId);
+      const radios = currentQuestion.querySelectorAll('input[type="radio"]');
+      let isSelected = false;
+      radios.forEach(radio => {
+        if (radio.checked) isSelected = true;
+      });
+      if (!isSelected) {
+        alert("Please select an option to continue.");
+        return;
+      }
+      // Hide current question and show next question
+      currentQuestion.classList.remove('active');
+      document.getElementById(nextId).classList.add('active');
+      currentQuestionIndex++;
+      updateProgress();
+    }
+
+    // Update the progress bar width based on the current question
+    function updateProgress() {
+      const progressElement = document.getElementById("progress");
+      const percentage = ((currentQuestionIndex) / questionIds.length) * 100;
+      progressElement.style.width = percentage + "%";
+    }
+
+    // Final submission: if "YES!" is selected on Question 6, redirect; otherwise, thank the user.
+    function submitQuiz() {
+      const q6Radios = document.getElementsByName("q6");
+      let selectedValue = "";
+      q6Radios.forEach(radio => {
+        if (radio.checked) selectedValue = radio.value;
+      });
+      if (selectedValue === "") {
+        alert("Please select an option to continue.");
+        return;
+      }
+      if (selectedValue === "YES!") {
+        window.location.href = "https://heikoboos.com/10-plr-video-courses/#aff=Ermi123";
+      } else {
+        alert("Thank you for taking the quiz! We appreciate your time and will be in touch with more opportunities.");
+      }
+    }
+  </script>
+</body>
+</html>
